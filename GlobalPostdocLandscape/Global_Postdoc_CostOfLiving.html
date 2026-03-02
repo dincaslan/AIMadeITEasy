@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Global Postdoc Landscape · 2025–2026</title>
+<meta name="description" content="Interactive comparison of postdoctoral salaries, living costs, healthcare systems, and funding opportunities across 34 global cities. 2025–2026 data.">
+<meta name="keywords" content="postdoc salary, postdoctoral fellowship, global academia, MSCA, NIH NRSA, SNSF, UKRI, cost of living, academic career">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Global Postdoc Landscape 2025–2026 · Salary, Cost of Living &amp; Healthcare Across 34 Cities">
+<meta property="og:description" content="Compare postdoc salaries, disposable income, rent burden, healthcare quality and EU/international funding (MSCA-PF, NIH NRSA, SNSF) across 34 global cities. Sources: NIH NOT-OD-25-105, UKRI 2025, DFG TVL-E13 2026, SNSF Postdoc.Mobility 2025, Research Ireland 2026 scale, JSPS 2025, NSERC PDF, TUBITAK 2218 (TRY 43,500/mo), MSCA Work Programme 2023–2025. Numbeo 2025 · World Bank WDI · IMF WEO Oct 2025. Exchange rates Feb 2026.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Global Postdoc Landscape 2025–2026 · 34 Cities Compared">
+<meta name="twitter:description" content="Postdoc salaries, living costs &amp; healthcare across 34 cities. Funding: NIH NRSA $5,221/mo · MSCA-PF up to €10,519/mo (CH, CCC 163.8%) · UKRI £40,497/yr · SNSF CHF 7,800/mo · DFG TVL-E13 €4,759/mo · TUBITAK TRY 43,500/mo · NSERC CAD 70k · JSPS ¥362,000/mo.">
+<meta name="dc.source.salary" content="NIH NOT-OD-25-105 (FY2025) · UKRI 2025 · DFG TVL-E13 2026 · SNSF Postdoc.Mobility 2025 · Research Ireland PostDoc 2A 2026 · JSPS 2025 · NSERC PDF · TUBITAK 2218 TRY 43,500/mo · CONAHCYT 2025">
+<meta name="dc.source.msca" content="MSCA Work Programme 2023–2025 · Living allowance €5,990/mo × CCC · Mobility €710/mo · CH CCC 163.8% (SERI transitional 2025) · NO ~145% · UK 141.7% · SE 112% · IE 110% · DE 101.2% · FR 100% · ES 95.6% · PT 86% · GR 80% · PL 77% · TR 68%">
+<meta name="dc.source.costs" content="Numbeo Cost of Living 2025 · Expatistan 2025 · ECA International 2025">
+<meta name="dc.source.macro" content="World Bank WDI inflation 2020–2025 · IMF WEO October 2025 · Exchange rates Feb 2026: EUR/USD 1.18 · GBP 1.35 · CHF 1.29 · JPY 0.00647 · NOK 0.1051 · SEK 0.111 · CAD 0.741 · SGD 0.790 · KRW 0.000699 · CNY 0.145 · MYR 0.257 · ZAR 0.063 · EGP 0.020 · TRY 0.027 · MXN 0.058 · INR 0.011">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Serif:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" crossorigin="anonymous"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --eu:'#0072B2'; --ea:'#009E73'; --am:'#D55E00'; --me:'#CC79A7';
+  --bg:#F5F4F0;--card:#fff;--txt:#1C1C2E;--mut:#6B7280;--bdr:#E2E2EB;
+  --bl:#0072B2;--hdr-h:58px;--tab-h:44px;
+}
+html,body{height:100%;font-family:'IBM Plex Sans',system-ui,sans-serif;
+  background:var(--bg);color:var(--txt);font-size:12.5px;overflow-x:hidden}
+
+/* ── HEADER ───────────────────────────────────────────────── */
+.hdr{background:var(--bl);color:#fff;height:var(--hdr-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;gap:12px;flex-shrink:0}
+.hdr h1{font-family:'IBM Plex Serif',serif;font-size:16px;font-weight:600;
+  white-space:nowrap}
+.hdr p{font-size:10px;opacity:.8;max-width:560px;line-height:1.4}
+.hdr-meta{font-size:9.5px;opacity:.7;text-align:right;white-space:nowrap;line-height:1.6}
+
+/* ── REGION LEGEND ────────────────────────────────────────── */
+.reg{background:rgba(0,0,0,.2);backdrop-filter:blur(2px);
+  padding:4px 18px;display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+  flex-shrink:0}
+.rl{display:flex;align-items:center;gap:4px;font-size:10px;color:rgba(255,255,255,.9)}
+.rd{width:9px;height:9px;border-radius:50%}
+.rl-lbl{font-weight:600;opacity:.7;font-size:10px;color:rgba(255,255,255,.9)}
+
+/* ── TABS ─────────────────────────────────────────────────── */
+.tabs{display:flex;background:#fff;border-bottom:2px solid var(--bdr);
+  height:var(--tab-h);flex-shrink:0;overflow-x:auto}
+.tab-btn{padding:0 16px;font-size:11px;font-weight:600;letter-spacing:.3px;
+  text-transform:uppercase;cursor:pointer;border:none;background:transparent;
+  color:var(--mut);white-space:nowrap;height:100%;
+  border-bottom:3px solid transparent;transition:color .15s,border-color .15s;
+  display:flex;align-items:center;gap:5px}
+.tab-btn:hover{color:var(--txt)}
+.tab-btn.active{color:var(--bl);border-bottom-color:var(--bl)}
+.tab-icon{font-size:13px}
+
+/* ── MAIN CONTENT ─────────────────────────────────────────── */
+main{padding:10px 14px 6px;max-width:1680px;margin:0 auto}
+.tab-sec{display:none}
+.tab-sec.active{display:block}
+.row{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.row.single{grid-template-columns:1fr}
+
+/* ── CARDS ────────────────────────────────────────────────── */
+.card{background:var(--card);border-radius:8px;padding:10px 12px;
+  border:1px solid var(--bdr);box-shadow:0 1px 3px rgba(0,0,0,.05);
+  display:flex;flex-direction:column}
+.ch{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:6px;gap:6px;flex-wrap:wrap}
+.ct{font-size:10.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.45px;color:var(--txt)}
+.nt{font-size:9px;color:var(--mut);font-style:italic;margin-top:3px;line-height:1.5}
+
+/* ── SCROLLABLE CHART WRAPPER ─────────────────────────────── */
+.sc{overflow-y:auto;overflow-x:hidden;flex:1}
+.sc::-webkit-scrollbar{width:3px}
+.sc::-webkit-scrollbar-thumb{background:var(--bdr);border-radius:2px}
+
+/* ── TOOLTIP (?) ──────────────────────────────────────────── */
+.tip{position:relative;display:inline-flex}
+.tip-btn{width:15px;height:15px;border-radius:50%;background:var(--bdr);
+  border:none;cursor:pointer;font-size:9px;color:var(--mut);
+  display:inline-flex;align-items:center;justify-content:center;font-weight:600}
+.tip-btn:hover+.tip-box,.tip-btn:focus+.tip-box{display:block}
+.tip-box{display:none;position:absolute;right:0;top:18px;
+  background:#1C1C2E;color:#fff;font-size:10px;padding:8px 10px;
+  border-radius:6px;width:260px;z-index:300;line-height:1.55;
+  box-shadow:0 4px 16px rgba(0,0,0,.28);pointer-events:none}
+
+/* ── REFERENCE TABLE ──────────────────────────────────────── */
+#ref-table-wrap{overflow:auto;max-height:calc(100vh - 176px);
+  border:1px solid var(--bdr);border-radius:6px}
+#ref-table{width:100%;border-collapse:collapse;font-size:10.5px}
+#ref-table th{background:#1C1C2E;color:#fff;padding:7px 9px;
+  text-align:left;font-weight:600;letter-spacing:.35px;font-size:10px;
+  text-transform:uppercase;cursor:pointer;white-space:nowrap;
+  position:sticky;top:0;z-index:10}
+#ref-table th:hover{background:#333}
+#ref-table th.sort-asc::after{content:' ▲'}
+#ref-table th.sort-desc::after{content:' ▼'}
+#ref-table td{padding:6px 9px;border-bottom:1px solid #F0F0F5;
+  white-space:nowrap}
+#ref-table tr:nth-child(even) td{background:#FAFAFA}
+#ref-table tr:hover td{background:#EEF4FB}
+.pill{display:inline-block;padding:1px 7px;border-radius:10px;
+  font-size:9px;font-weight:600;color:#fff}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer{padding:6px 18px 14px;max-width:1680px;margin:0 auto}
+.refs{border-top:1px solid var(--bdr);padding-top:7px}
+.refs h3{font-size:9.5px;font-weight:600;text-transform:uppercase;
+  letter-spacing:.5px;color:var(--mut);margin-bottom:5px}
+.refs ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;
+  gap:2px 24px}
+.refs li{font-size:9px;color:var(--mut);line-height:1.5;padding-left:8px;position:relative}
+.refs li::before{content:'·';position:absolute;left:0}
+.refs .note{font-size:9px;color:var(--mut);margin-top:4px;font-style:italic}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div style="flex:0 0 auto">
+    <h1>Global Postdoc Landscape · 2025–2026</h1>
+  </div>
+  <p>Salary, cost of living, funding sources, healthcare &amp; financial wellbeing for a single postdoctoral researcher in a studio apartment. All figures in USD (~2025–2026 estimates). Exchange rates: EUR/USD 1.18, GBP/USD 1.35, CHF/USD 1.29, NOK/USD 0.105, SEK/USD 0.111, JPY/USD 0.00647, MYR/USD 0.257, SGD/USD 0.79, ZAR/USD 0.063.</p>
+  <div class="hdr-meta">NIH NRSA FY2025 · Research Ireland 2026 · SNSF · DFG TVL-E13 · FCT<br>UKRI 2025 · JSPS · NSERC · Numbeo 2025 · OECD</div>
+</header>
+
+<div class="reg" style="background:rgba(0,114,178,.75)">
+  <span class="rl-lbl">Region:</span>
+  <div class="rl"><div class="rd" style="background:#0072B2"></div>Europe</div>
+  <div class="rl"><div class="rd" style="background:#009E73"></div>E.Asia</div>
+  <div class="rl"><div class="rd" style="background:#D55E00"></div>Americas</div>
+  <div class="rl"><div class="rd" style="background:#CC79A7"></div>ME/Africa</div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="setTab('t1')"><span class="tab-icon">💰</span>Salary &amp; Budget</button>
+  <button class="tab-btn" onclick="setTab('t2')"><span class="tab-icon">🏠</span>Living Costs</button>
+  <button class="tab-btn" onclick="setTab('t3')"><span class="tab-icon">🏛</span>Funding &amp; Wages</button>
+  <button class="tab-btn" onclick="setTab('t4')"><span class="tab-icon">🏥</span>Healthcare &amp; Risk</button>
+  <button class="tab-btn" onclick="setTab('t5')"><span class="tab-icon">📊</span>Reference Table</button>
+</div>
+
+<main>
+
+<!-- ═══════════════ TAB 1: SALARY & BUDGET ═══════════════ -->
+<section id="t1" class="tab-sec active">
+  <div class="row">
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Gross → Net Monthly Salary</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">Solid bar = net take-home after income tax + mandatory social contributions. Light extension = taxes deducted. Total = gross salary. Sources: NIH NRSA 2024, Research Ireland €47,273/yr, SNSF, DFG E13, UKRI £38,479/yr, FCT €2,931/mo, etc. Sorted by gross salary.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cSalary"></canvas></div></div>
+      <p class="nt">↕ Scroll · Solid = net take-home · Light = tax deducted · Color = region</p>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Monthly Budget Breakdown (% of net salary)</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">Each bar = 100% of net take-home. Shows share going to: studio rent, groceries, public transport, utilities, and what remains as disposable income (green). Sorted by disposable %. Red segment = deficit (expenses exceed salary). Studio = mid-range 1-person unit near university, Numbeo 2025.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cBudget"></canvas></div></div>
+      <p class="nt">↕ Scroll · Green = disposable · Red = deficit · Sorted best → worst</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TAB 2: LIVING COSTS ═══════════════ -->
+<section id="t2" class="tab-sec">
+  <div class="row">
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Disposable Income · Cost of Living · Net Salary</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box"><strong>X-axis:</strong> Numbeo Cost of Living Index (NYC=100) — how expensive is the city overall. <strong>Y-axis:</strong> Net monthly take-home salary (USD). <strong>Bubble size:</strong> monthly disposable income (net minus rent+food+transport+utilities). Bigger bubble = more left over. <strong>Red/transparent</strong> = deficit city (expenses exceed salary). Best position: upper-left (high salary, low cost). Hover for details.</div></div>
+      </div>
+      <div style="position:relative;flex:1;min-height:290px"><canvas id="cDisp"></canvas></div>
+      <p class="nt">↗ Upper-left = best value · Bubble size = disposable income · Red = deficit</p>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Studio Rent as % of Net Salary · 30% Threshold</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">Studio apartment (mid-range, near university) as % of net monthly take-home. The 30% rule is a standard housing affordability benchmark — above it, housing is considered financially stressful. Verified against Numbeo 2025 studio rental data. Sorted most-burdened first.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cRent"></canvas></div></div>
+      <p class="nt">↕ Scroll · Dashed line = 30% threshold · Green &lt; 30% · Red &gt; 50%</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TAB 3: FUNDING & WAGES ═══════════════ -->
+<section id="t3" class="tab-sec">
+  <div class="row">
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Postdoc Salary by Funding Source</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box"><strong>Government/National:</strong> Standard national council postdoc (DFG E13, UKRI, NIH NRSA, Research Ireland, SNSF, FCT, JSPS, etc.) · <strong>EU/Intl Competitive:</strong> MSCA-PF with country correction coefficient (2023–2025 WP); NIH NRSA for US; Banting for Canada; JSPS overseas for Japan. Switzerland eligible from Jan 2025 via transitional arrangement (CCC 163.8% — highest globally, €10,519/mo gross). Only available for countries with access to Horizon Europe or equivalent. · <strong>Industry:</strong> Estimated typical pharmaceutical/biotech postdoc gross salary in that city. All values gross monthly USD.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cFunding"></canvas></div></div>
+      <p class="nt">↕ Scroll · All values gross monthly USD · EU/Intl = MSCA-PF or equivalent · Sorted by government salary</p>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Postdoc Net Salary vs Estimated Local Living Wage</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">Each row shows postdoc net salary (circle) vs estimated single-adult living wage (diamond) for that city. <strong>Line colour:</strong> green = postdoc salary exceeds living wage; red = postdoc falls short. Living wage estimates: MIT Living Wage Calculator for US; Eurostat/national data for Europe; Numbeo cost data for others. Sorted by salary-to-wage gap.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cDumbbell"></canvas></div></div>
+      <p class="nt">↕ Scroll · ● = postdoc net salary · ◆ = living wage · Green line = above living wage · Red = below</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TAB 4: HEALTHCARE & RISK ═══════════════ -->
+<section id="t4" class="tab-sec">
+  <div class="row">
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Healthcare: Quality · Access · Affordability · Dental (1–10)</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box"><strong>Quality (blue):</strong> Hospital quality, specialist availability, outcomes — WHO 2023, Numbeo. <strong>Access (orange):</strong> Ease for a foreign postdoc on work contract — wait times, SGK/NHS/etc registration. <strong>Affordability (green):</strong> General cost vs postdoc salary: 10=fully state-funded/free. <strong>Dental (pink):</strong> Dental cost affordability: 10=cheap/covered (TR, IN, MX), low=very expensive OOP (US, CH, IE). Turkey note: employed postdocs join SGK from day 1, covering comprehensive care including basic dental. Sorted by 4-metric average.</div></div>
+      </div>
+      <div class="sc" style="height:300px"><div style="position:relative;height:700px"><canvas id="cHealth"></canvas></div></div>
+      <p class="nt">↕ Scroll · Blue = quality · Orange = access · Green = affordability · Sorted by average</p>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <span class="ct">Inflation Risk · 5-Year Average Annual Rate (2020–2025)</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">Average annual consumer price inflation 2020–2025 (World Bank / IMF). A postdoc salary fixed for a 3-year contract loses purchasing power by approximately 3× the annual rate. Example: 5% annual inflation → ~15% real-value loss over a 3-year contract if salary is not adjusted upward. Turkey and Egypt are extreme outliers. Source: World Bank WDI, IMF WEO Oct 2025.</div></div>
+      </div>
+      <div style="position:relative;flex:1;min-height:295px"><canvas id="cInflation"></canvas></div>
+      <p class="nt">Green &lt; 3% · Yellow 3–6% · Orange 6–10% · Red &gt; 10% · Note: Turkey/Egypt are off-scale outliers</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TAB 5: REFERENCE TABLE ═══════════════ -->
+<section id="t5" class="tab-sec">
+  <div class="card" style="padding:8px">
+    <div class="ch">
+      <span class="ct">Complete City Reference Table</span>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:10px;color:var(--mut)">Click column headers to sort</span>
+        <div class="tip"><button class="tip-btn">?</button>
+          <div class="tip-box">All 34 cities. Gross = monthly gross salary (national council funding). Net = after effective income tax + social contributions. Disp. = disposable income after rent+groceries+transport+utilities. Rent% = studio rent as % of net salary. CoL = Numbeo Cost of Living Index (NYC=100). HC = Healthcare average score (Quality+Access+Affordability+Dental÷4). Living Wage = estimated single-adult minimum for decent living.</div></div>
+      </div>
+    </div>
+    <div id="ref-table-wrap"><table id="ref-table"><thead><tr></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="refs">
+    <h3>Data Sources</h3>
+    <ul>
+      <li>Salaries: NIH NRSA FY2025 ($62,652/yr = $5,221/mo, NOT-OD-25-105); Research Ireland 2025–2026 New PostDoc P1 (€47,273/yr); SNSF Postdoc.Mobility (~CHF 7,800/mo); DFG TVL-E13 Stufe 1 (~€4,759/mo, 2025/26); UKRI 2025 Grade 6 min (~£40,497/yr); FCT 2025 junior researcher (~€2,950/mo); FWF; Academy of Finland; VR Sweden (~SEK 42,000/mo); JSPS PD ¥362k/mo; NRF Korea ~KRW 3M/mo; CNRS; A*STAR/NRF Singapore ~SGD 5,900/mo; NSERC PDF CAD 70,000/yr; IIT Delhi/DST-SERB (~INR 82k+HRA); CONAHCYT ~MXN 32k/mo; NRF South Africa ~ZAR 35k/mo</li>
+      <li>MSCA-PF (2023–2025 WP, 2025 call): living allowance €5,990/mo × country correction coefficient + €710 mobility. CCCs: Switzerland 163.8%, UK 141.7%, Norway ~145%, Ireland 110%, Sweden 112%, Germany 101.2%, Spain 95.6%, Portugal 86%, Greece 80%, Poland 77%, Turkey 68%. Switzerland MSCA-eligible from Jan 2025 (transitional arrangement; SERI backstops funding if formal association agreement not signed by grant date). Amounts converted at Feb 2026 EUR/USD = 1.18.</li>
+      <li>Rents: Numbeo 2025 studio apartment (not 1-bedroom) near university. Cross-checked: Daft.ie (Dublin), Rightmove (UK), Immoscout24 (DE), Idealista (ES/PT), Magicbricks (Delhi). European costs reflect EUR/GBP/CHF strengthening vs USD (~7–15%) since 2023–2024.</li>
+      <li>Turkey: Horizon Europe associated country (TUBITAK NCP confirmed). MSCA-PF CCC ~68% → €5,990×0.68+€710=€4,783/mo≈$5,644 at EUR/USD 1.18. TUBITAK 2218 fellowship TRY 43,500/mo (~$1,175 at ₺37/USD, 2025). <strong>TUBITAK 2218 stipend is tax-exempt under Turkish law</strong> (fellowship income is not classified as employment wage; no income tax deducted). Employed postdocs join SGK from day 1 (work permit), providing universal healthcare incl. basic dental; SGK covers ~99% of population.</li>
+      <li><strong>Tax status by program (verified 2025):</strong> Tax-exempt: TUBITAK 2218 (Turkey — fellowship not classified as wage income); JSPS overseas fellowship (Japan — explicitly "not employment-based wages, exempted from taxation" per JSPS guidelines). Taxable: NIH NRSA (US — "subject to federal and state income tax," reported on Form 1099, per NIAID); NSERC PDF / Banting (Canada — explicitly taxable since 2010 CRA ruling, Box 105 T4A); UKRI, DFG TVL-E13, Research Ireland (employment contracts, fully taxable as salary); SNSF Postdoc.Mobility (Swiss income tax applies); MSCA-PF (taxed as employment income in host country, at host-country rates). Japan domestic JSPS PD: classified as 雑所得 (miscellaneous income), not salary — no source withholding, no social insurance contributions; effective rate ~13% after ¥480k basic deduction, lower than the ~24% applied to salaried institutional postdocs.</li>
+      <li>Dental affordability: scores reflect cost of routine dental care relative to postdoc salary. Sources: NHS dental charges (UK), SGK Turkey, NHIS Korea/Japan, Numbeo dental procedures, Expatistan dental index 2025. Low-cost leaders: Turkey, India, Mexico (medical tourism destinations). High OOP: US, Switzerland, Ireland (no adult public dental plan).</li>
+      <li>Inflation: World Bank WDI 2025; IMF World Economic Outlook Oct 2025; 5-year averages 2020–2025</li>
+      <li>Healthcare: WHO World Health Statistics 2024; Numbeo Healthcare Index 2025; OECD Health at a Glance 2024. Scores calibrated for foreign postdoctoral researchers on employment contracts.</li>
+      <li><strong>Living Wage — methodology:</strong> All figures are <em>net monthly cost floors</em> (what you need to <strong>spend</strong>, not earn) — enabling direct, fair comparison with postdoc net salary. <strong>US cities:</strong> MIT Living Wage Calculator 2025 "Typical Expenses" table (1 adult, 0 children) ÷ 12, which explicitly excludes income taxes. MIT's headline living wage (gross) was NOT used. <strong>All other cities:</strong> (rent + food + transport + utilities) × 1.30 buffer, rounded to nearest $50, covering internet, clothing, personal care and misc. Japan +$250 for mandatory NHI + pension self-payment by JSPS fellows. Turkey: national benchmark retained. Prior EU figures were inflated gross wage benchmarks and have been corrected to net. All USD at Feb 2026 rates.</li>
+      <li>Industry postdoc: Glassdoor, Levels.fyi, LinkedIn salary data; representative pharma/biotech hubs 2025–2026. USD values use Feb 2026 exchange rates.</li>
+    </ul>
+    <p class="note">All figures are estimates for comparative purposes. Verify current rates with funding bodies, institutions, and national tax authorities before making career decisions.</p>
+  </div>
+</footer>
+
+<script>
+'use strict';
+// ═══════════════════════════════════════════════════════════
+// REGION COLOURS (4 groups, colorblind-safe Okabe-Ito palette)
+// ═══════════════════════════════════════════════════════════
+const RC = {
+  'Europe':   '#0072B2',
+  'E.Asia':   '#009E73',
+  'Americas': '#D55E00',
+  'ME/Africa':'#CC79A7'
+};
+
+// ═══════════════════════════════════════════════════════════
+// INFLATION: 5-year average annual CPI % (2020–2025)
+// Source: World Bank WDI, IMF WEO Oct 2025
+// ═══════════════════════════════════════════════════════════
+const INF = {
+  CH:1.9, NO:4.5, US:4.7, SG:3.1, AE:2.3, CA:4.4,
+  UK:5.9, SE:4.3, DE:4.6, IE:5.6, FI:4.2, JP:1.8,
+  AT:4.8, PT:4.1, FR:3.8, ES:3.4, GR:4.3, PL:7.8,
+  KR:2.9, MY:2.7, CN:1.6, MX:5.4, ZA:5.8,
+  TR:42.0, IN:5.6, RU:8.2, EG:18.5
+};
+
+// ═══════════════════════════════════════════════════════════
+// MAIN DATA
+// Fields: [city, country, region, gross, taxRate,
+//          rent, groceries, transport, utilities, colIndex,
+//          hcAccess, hcAfford, hcQuality,
+//          livingWage, industryGross, mscaIntlGross]
+//
+// hcQuality: 1-10 (infrastructure, outcomes, specialists)
+// hcAccess:  1-10 (ease of access for foreign postdoc)
+// hcAfford:  1-10 (cost relative to salary; 10=free)
+// livingWage: est. single-adult monthly living wage (USD)
+// industryGross: est. pharma/biotech postdoc gross (USD)
+// mscaIntlGross: MSCA-PF or equiv competitive fellowship gross monthly USD
+//   Turkey: Horizon Europe associated country (upcoming); CCC ~68%
+//   → €5990×0.68+€710=€4783/mo≈$5213; confirmed via TUBITAK NCP
+// hcDental: dental affordability 1-10 (10=free/cheap, 1=very expensive OOP)
+// ═══════════════════════════════════════════════════════════
+const RAW = [
+// ── EUROPE ──────────────────────────────────────────────────────────────────
+// fmt: [city,ctry,region,gross,taxR,rent,food,trans,util,col,hcAccess,hcAfford,hcQuality,hcDental,lw,indG,mscaG]
+// SNSF Postdoc.Mobility CHF ~7,800/mo (2025); Roche/Novartis/Pfizer hubs; dental private+mandatory→expensive
+// CHF/USD=1.29 (Feb 2026). Switzerland MSCA-eligible from Jan 2025 (transitional arrangement; SERI backstops if formal assoc. not yet signed)
+// MSCA-PF CCC=163.8% → €5,990×1.638+€710=€10,519/mo≈$12,412 (highest CCC globally; exceeds SNSF salary)
+['Zurich',       'CH','Europe', 10100,0.18,2500,850,130,230,142, 9,5,10, 3,4800,12500,12400],
+['Bern',         'CH','Europe',  9700,0.18,2100,790,120,210,136, 9,5,10, 3,4200,12000,12400],
+// Research Council Norway ~645k NOK/yr (2025 collective agreement +5%); MSCA CCC~145%; partial dental
+// NOK/USD=0.1051 (Feb 2026); old rate ~0.093 → NOK salaries +13% in USD
+['Oslo',         'NO','Europe',  5700,0.38,1700,680,150,185,118, 9,10, 9, 5,3550, 7800,11100],
+// DFG TVL E13 Stufe1 ~€4,759/mo (2025/2026); MSCA CCC 101.2%→€6,772=$7,991; statutory covers basic dental
+// EUR/USD=1.18 (Feb 2026); old rate ~1.10 → EUR salaries +7% in USD
+['Berlin',       'DE','Europe',  5600,0.34,1400,480,110,155, 89, 9,10,9.5, 6,2800, 7600, 8000],
+['Münster',      'DE','Europe',  5600,0.34,1030,440, 90,135, 80, 9,10,9.5, 6,2200, 6800, 8000],
+// Research Ireland New PostDoc Level 2A P1 €47,273/yr (Jan-Jun 2026 scale) = $4,648/mo
+// MSCA CCC 110%→€7,299=$8,613; no public adult dental→expensive private
+['Dublin',       'IE','Europe',  4650,0.29,1420,510,145,175,100, 6, 7, 7, 3,2900, 8500, 8600],
+// FWF ~€4,200/mo (2025 collective agreement); MSCA CCC 100%→€6,700=$7,906; statutory covers basic dental
+['Vienna',       'AT','Europe',  5000,0.35,1160,440, 70,135, 85, 9, 9,9.5, 6,2350, 7300, 7900],
+// UKRI Grade 6 ~£40,497/yr (2025; 1.4% award Aug 2025); GBP/USD=1.35; MSCA CCC 141.7%→$10,854; NHS dental (limited)
+['London',       'UK','Europe',  4850,0.28,2000,520,205,145, 95, 8, 9, 8, 5,3750, 7700,10800],
+['Edinburgh',    'UK','Europe',  4550,0.28,1290,460, 92,135, 82, 8, 9, 8, 5,2550, 6700,10800],
+// VR postdoc ~SEK 42,000/mo (2025); SEK/USD=0.111; MSCA CCC 112%→€7,419=$8,754; dental: low adult copay
+['Uppsala',      'SE','Europe',  4700,0.32,1015,460, 88,135, 93, 9,10, 9, 6,2200, 6600, 8800],
+// Academy of Finland ~€3,400/mo (2025); MSCA CCC 105%→€7,000=$8,260; public dental all ages
+['Turku',        'FI','Europe',  4000,0.33, 920,460, 78,135, 85, 9,10, 9, 7,2050, 6100, 8300],
+// FCT junior researcher ~€2,950/mo (2025); MSCA CCC 86%→€5,861=$6,916; affordable private dental
+['Lisbon',       'PT','Europe',  3500,0.25,1180,365, 60,110, 60, 7, 8,7.5, 7,2250, 5000, 6900],
+// ANR/CNRS ~€2,900/mo (2025); MSCA CCC 100%→€6,700=$7,906; partial reimbursement via assurance maladie
+['Strasbourg',   'FR','Europe',  3400,0.28, 970,435, 72,125, 85, 9, 9, 9, 6,2100, 6600, 7900],
+// Juan de la Cierva Formación €2,800/mo (2025); MSCA CCC 95.6%→€6,436=$7,594; affordable private dental
+['Granada',      'ES','Europe',  3300,0.20, 770,340, 33,100, 62, 8, 9, 8, 7,1600, 3800, 7600],
+// GSRT/ELIDEK ~€1,900/mo (2025); MSCA CCC 80%→€5,502=$6,492; affordable private dental
+['Athens',       'GR','Europe',  2250,0.22, 710,340, 57,100, 62, 7, 7, 7, 7,1550, 3400, 6500],
+// NCN Poland PLN ~8,000/mo (2025); PLN/USD≈0.248; MSCA CCC 77%→€5,322=$6,280; NFZ covers basic dental
+['Warsaw',       'PL','Europe',  2250,0.20, 650,330, 45,105, 63, 7, 8, 7, 6,1450, 4200, 6300],
+// TUBITAK 2218 TRY 43,500/mo ($1,175 at ₺37/USD, 2025 confirmed); MSCA-PF CCC ~68%→€4,783≈$5,644
+// TAX: TUBITAK 2218 stipend is TAX-EXEMPT under Turkish law (not classified as employment wage income) → taxRate=0
+// Employed postdocs join SGK from day 1; comprehensive dental coverage; medical tourism destination
+['Istanbul',     'TR','Europe',  1175,0.00, 560,280, 32, 85, 38, 7, 8, 7, 9, 980, 3000, 5600],
+['Ankara',       'TR','Europe',  1175,0.00, 450,245, 26, 72, 32, 7, 8, 7, 9, 980, 2700, 5600],
+
+// ── E.ASIA ──────────────────────────────────────────────────────────────────
+// JSPS PD ¥362,000/mo (unchanged 2025); JPY/USD=0.00647 (¥154.6/USD); NHI covers basic dental
+// TAX: JSPS domestic PD fellowship = 雑所得 (miscellaneous income), not salary → no withholding, no social insurance contributions
+// Effective rate ~13% after basic deduction (¥480k), lower than employed postdoc rate (24%+social)
+// JSPS overseas fellowship for foreign researchers: explicitly tax-exempt in Japan
+// Note: JPY weakened ~15% vs USD since 2023–2024 (then ¥134/USD)
+['Tokyo',        'JP','E.Asia',  2350,0.13, 670,360,135, 87, 65, 9, 9,9.5, 7,1900, 4200, 3000],
+['Osaka',        'JP','E.Asia',  2350,0.13, 570,345,115, 80, 58, 9, 9,9.5, 7,1700, 3800, 3000],
+// NRF Korea ~KRW 3,000,000/mo; KRW/USD=0.000699 (₩1,430/USD); NHI covers basic dental
+['Seoul',        'KR','E.Asia',  2100,0.15, 580,340, 90, 80, 60, 8, 8, 9, 7,1400, 3800, 2900],
+// CAS/NSFC CNY ~18,000/mo; CNY/USD=0.145 (¥6.91/USD); affordable private dental
+['Shanghai',     'CN','E.Asia',  2600,0.20, 590,320, 48, 72, 63, 7, 7, 7, 8,1350, 4400, 3500],
+['Beijing',      'CN','E.Asia',  2500,0.20, 620,320, 45, 80, 64, 7, 7, 7, 8,1400, 4100, 3500],
+// A*STAR/NRF Singapore ~SGD 5,900/mo; SGD/USD=0.790 (S$1.27/USD); MediShield Life covers some dental
+['Singapore',    'SG','E.Asia',  4500,0.07,1580,575,120,170, 88, 9, 7, 9, 6,3200, 6800, 4300],
+// MyBrainSc/MOSTI MYR ~5,000/mo; MYR/USD=0.257 (RM3.89/USD, strengthened from ~4.5 in 2023); affordable dental
+['Kuala Lumpur', 'MY','E.Asia',  1500,0.10, 400,280, 53, 88, 46, 7, 7, 7, 8,1050, 3000, 2400],
+// IIT Delhi/DST-SERB ~INR 82,000/mo incl. HRA; INR/USD=0.011 (₹91/USD); very affordable dental
+['Delhi',        'IN','E.Asia',   990,0.05, 228,104, 36, 52, 27, 5, 8,5.5, 9, 550, 2200, 2200],
+
+// ── AMERICAS ────────────────────────────────────────────────────────────────
+// NIH NRSA FY2025 $62,652/yr=$5,221/mo (NOT-OD-25-105, effective Oct 2024)
+// dental NOT covered by most NIH positions (OOP expensive); Yr0=$5,221, Yr7=$6,297
+['San Francisco','US','Americas', 5221,0.35,2400,550,110,145,108, 6, 2, 8, 2,4300,10000, 5800],
+['Boston',       'US','Americas', 5221,0.30,2200,510,110,145, 99, 7, 3, 8, 2,4500, 9500, 5800],
+['Chicago',      'US','Americas', 5221,0.30,1550,480,115,130, 89, 5, 2, 7, 2,3550, 8200, 5800],
+// NSERC PDF CAD 70,000/yr (2024 increase); Banting CAD 70,000/yr=$4,322 at C$1.35/USD
+// dental not in basic provincial plan (Ontario partial plan 2023+ for youth)
+['Toronto',      'CA','Americas', 4300,0.28,1480,490,135,140, 85, 7, 8, 8, 4,2900, 7000, 4300],
+// CONAHCYT/UNAM MXN ~32,000/mo=$1,854 at MXN17.26/USD; affordable private dental
+['Mexico City',  'MX','Americas', 1850,0.18, 540,285, 44, 68, 43, 5, 6, 5, 8,1200, 3600,    0],
+
+// ── ME / AFRICA ─────────────────────────────────────────────────────────────
+// Dubai: employer-contract; 0% tax; employer plans often include dental; AED pegged to USD
+['Dubai',        'AE','ME/Africa',4500,0.00,1650,560,165,210, 80, 8, 6, 8, 6,3350, 6200,    0],
+// NRF South Africa ZAR ~35,000/mo; ZAR/USD=0.063 (₽15.9/USD, strengthened from ~18.9 in 2023)
+['Cape Town',    'ZA','ME/Africa',2200,0.25, 550,280, 66, 85, 44, 5, 5, 5, 6,1300, 3600,    0],
+// ASRT/institutional EGP ~45,000/mo; EGP/USD=0.020 (after Mar 2024 devaluation ~₤50/USD); very affordable dental
+['Cairo',        'EG','ME/Africa', 900,0.15, 215,172, 32, 45, 26, 4, 5,4.5, 8, 600, 1500,    0],
+];
+
+// ═══════════════════════════════════════════════════════════
+// DERIVED CITY OBJECTS
+// ═══════════════════════════════════════════════════════════
+const cities = RAW.map(r => {
+  const [name,country,region,gross,tax,rent,food,trans,util,col,
+         hca,hcaff,hcq,hcDental,lw,indG,mscaG] = r;
+  const net     = Math.round(gross*(1-tax));
+  const taxAmt  = gross-net;
+  const expenses= rent+food+trans+util;
+  const disp    = net-expenses;
+  const rentPct = +(rent/net*100).toFixed(1);
+  const foodPct = +(food/net*100).toFixed(1);
+  const transPct= +(trans/net*100).toFixed(1);
+  const utilPct = +(util/net*100).toFixed(1);
+  const dispPct = +(disp/net*100).toFixed(1);
+  const hcAvg   = +((hca+hcaff+hcq+hcDental)/4).toFixed(1);
+  return {name,country,region,gross,tax,net,taxAmt,rent,food,trans,util,col,
+          hca,hcaff,hcq,hcDental,hcAvg,lw,indG,mscaG,
+          expenses,disp,rentPct,foodPct,transPct,utilPct,dispPct,
+          color: RC[region]||'#888'};
+});
+
+// ═══════════════════════════════════════════════════════════
+// CHART DEFAULTS & HELPERS
+// ═══════════════════════════════════════════════════════════
+Chart.defaults.font.family = "'IBM Plex Sans',system-ui,sans-serif";
+Chart.defaults.font.size = 10;
+
+const TT = {
+  backgroundColor:'#1C1C2E', titleColor:'#fff',
+  bodyColor:'rgba(255,255,255,.85)', padding:9,
+  cornerRadius:6, titleFont:{weight:'600',size:11}
+};
+
+const chartReg = {};
+
+function makeChart(id,config){
+  const c = new Chart(document.getElementById(id).getContext('2d'), config);
+  chartReg[id] = c;
+  return c;
+}
+
+// ═══════════════════════════════════════════════════════════
+// CHART 1 — GROSS → NET SALARY (lollipop / stacked bar)
+// ═══════════════════════════════════════════════════════════
+(function(){
+  const s = [...cities].sort((a,b)=>b.gross-a.gross);
+  makeChart('cSalary',{
+    type:'bar',
+    data:{
+      labels: s.map(c=>c.name),
+      datasets:[
+        {label:'Net Salary', data:s.map(c=>c.net),
+         backgroundColor:s.map(c=>c.color), barThickness:9, stack:'s',
+         borderRadius:{topRight:2,bottomRight:2}},
+        {label:'Tax / Deductions', data:s.map(c=>c.taxAmt),
+         backgroundColor:s.map(c=>c.color+'44'), barThickness:9, stack:'s',
+         borderRadius:{topRight:3,bottomRight:3}}
+      ]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false, indexAxis:'y', animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:7}},
+        tooltip:{...TT, callbacks:{
+          title:it=>`${s[it[0].dataIndex].name} (${s[it[0].dataIndex].country})`,
+          label:it=>{
+            const c=s[it.dataIndex];
+            return[` Gross: $${c.gross.toLocaleString()}`,
+                   ` Net (−${(c.tax*100).toFixed(0)}% eff. tax): $${c.net.toLocaleString()}`,
+                   ` Region: ${c.region}`];
+          }
+        }}
+      },
+      scales:{
+        x:{stacked:true,grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},callback:v=>'$'+v.toLocaleString()}},
+        y:{stacked:true,grid:{display:false},border:{display:false},
+           ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 2 — BUDGET BREAKDOWN %
+// ═══════════════════════════════════════════════════════════
+(function(){
+  const s=[...cities].sort((a,b)=>b.dispPct-a.dispPct);
+  makeChart('cBudget',{
+    type:'bar',
+    data:{
+      labels:s.map(c=>c.name),
+      datasets:[
+        {label:'Rent',       data:s.map(c=>+c.rentPct),  backgroundColor:'#0072B2', barThickness:9,stack:'s'},
+        {label:'Groceries',  data:s.map(c=>+c.foodPct),  backgroundColor:'#56B4E9', barThickness:9,stack:'s'},
+        {label:'Transport',  data:s.map(c=>+c.transPct), backgroundColor:'#E69F00', barThickness:9,stack:'s'},
+        {label:'Utilities',  data:s.map(c=>+c.utilPct),  backgroundColor:'#D4B800', barThickness:9,stack:'s'},
+        {label:'Disposable', data:s.map(c=>c.dispPct<0?0:+c.dispPct), backgroundColor:'#009E73',barThickness:9,stack:'s'},
+        {label:'Deficit',    data:s.map(c=>c.dispPct<0?Math.abs(+c.dispPct):0),backgroundColor:'#D55E0066',barThickness:9,stack:'s'}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:5}},
+        tooltip:{...TT,callbacks:{
+          title:it=>`${s[it[0].dataIndex].name}`,
+          label:it=>{
+            const c=s[it.dataIndex];
+            const lbls=['Rent','Groceries','Transport','Utilities','Disposable','Deficit'];
+            const vals=[c.rentPct,c.foodPct,c.transPct,c.utilPct,
+              c.dispPct<0?0:c.dispPct, c.dispPct<0?Math.abs(c.dispPct):0];
+            return ` ${lbls[it.datasetIndex]}: ${vals[it.datasetIndex]}% → $${c.net.toLocaleString()} net`;
+          }
+        }}
+      },
+      scales:{
+        x:{stacked:true,max:115,grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{stacked:true,grid:{display:false},border:{display:false},
+           ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 3 — DISPOSABLE INCOME BUBBLE CHART
+// X = Cost of Living Index (NYC=100)
+// Y = Net Monthly Salary (USD)
+// Bubble radius ∝ Disposable income (green=positive, red=deficit)
+// Labels via custom plugin
+// ═══════════════════════════════════════════════════════════
+(function(){
+  // Scale disposable to bubble radius (pixels): min 4, max ~28
+  const allDisp = cities.map(c=>Math.max(0, c.disp));
+  const maxDisp = Math.max(...allDisp);
+  const scale = d => Math.max(4, Math.sqrt(Math.max(0,d)/maxDisp)*28);
+
+  // Group datasets by region for legend
+  const regions = [...new Set(cities.map(c=>c.region))];
+
+  const labelPlugin = {
+    id:'bubbleLabels',
+    afterDatasetsDraw(chart){
+      const{ctx}=chart;
+      ctx.save();
+      ctx.font='bold 8.5px IBM Plex Sans,sans-serif';
+      ctx.textAlign='center'; ctx.textBaseline='middle';
+      chart.data.datasets.forEach((ds,di)=>{
+        const meta=chart.getDatasetMeta(di);
+        meta.data.forEach((pt,i)=>{
+          const d=ds.data[i];
+          if(!d) return;
+          ctx.fillStyle='rgba(0,0,0,0.7)';
+          // short 3-4 char label
+          const lbl = d.name.length>6?d.name.slice(0,5)+'…':d.name;
+          ctx.fillText(lbl, pt.x, pt.y);
+        });
+      });
+      ctx.restore();
+    }
+  };
+
+  const datasets = regions.map(reg=>{
+    const rc = cities.filter(c=>c.region===reg);
+    return {
+      label: reg,
+      data: rc.map(c=>({
+        x: c.col,
+        y: c.net,
+        r: scale(c.disp),
+        name: c.name,
+        city: c
+      })),
+      backgroundColor: rc.map(c=>(c.disp<0?'#D55E0055':c.color+'88')),
+      borderColor: rc.map(c=>(c.disp<0?'#D55E00':c.color)),
+      borderWidth: 1.5
+    };
+  });
+
+  makeChart('cDisp',{
+    type:'bubble',
+    plugins:[labelPlugin],
+    data:{ datasets },
+    options:{
+      responsive:true, maintainAspectRatio:false, animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:7,
+          usePointStyle:true,pointStyle:'circle'}},
+        tooltip:{...TT, callbacks:{
+          title:it=>it[0].raw.city.name+' ('+it[0].raw.city.country+')',
+          label:it=>{
+            const c=it.raw.city;
+            return[
+              ` CoL Index: ${c.col} (NYC=100)`,
+              ` Net salary: $${c.net.toLocaleString()}/mo`,
+              ` Disposable: ${c.disp<0?'−':''}$${Math.abs(c.disp).toLocaleString()} (${c.dispPct}%)`,
+              ` Bubble size ∝ disposable income${c.disp<0?' — deficit!':''}`
+            ];
+          }
+        }}
+      },
+      scales:{
+        x:{
+          title:{display:true,text:'Cost of Living Index (NYC = 100)',
+            font:{size:9},color:'#6B7280'},
+          grid:{color:'#F0F0F0'}, border:{display:false},
+          ticks:{font:{size:9}}
+        },
+        y:{
+          title:{display:true,text:'Net Monthly Salary (USD)',
+            font:{size:9},color:'#6B7280'},
+          grid:{color:'#F0F0F0'}, border:{display:false},
+          ticks:{font:{size:9},callback:v=>'$'+v.toLocaleString()}
+        }
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 4 — RENT BURDEN %
+// ═══════════════════════════════════════════════════════════
+(function(){
+  const s=[...cities].sort((a,b)=>b.rentPct-a.rentPct);
+  const rentColor=p=>p>50?'#D55E00':p>30?'#E69F00':'#009E73';
+
+  const threshLine={
+    id:'thresh30',
+    afterDraw(chart){
+      const{ctx,scales:{x,y}}=chart;
+      const x30=x.getPixelForValue(30);
+      ctx.save();
+      ctx.setLineDash([4,3]);
+      ctx.strokeStyle='#D55E00'; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.moveTo(x30,y.top); ctx.lineTo(x30,y.bottom); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle='#D55E00'; ctx.font='9px IBM Plex Sans,sans-serif';
+      ctx.fillText('30%',x30+3,y.top+10);
+      ctx.restore();
+    }
+  };
+
+  makeChart('cRent',{
+    type:'bar',
+    plugins:[threshLine],
+    data:{
+      labels:s.map(c=>c.name),
+      datasets:[{
+        label:'Rent % of Net',
+        data:s.map(c=>+c.rentPct),
+        backgroundColor:s.map(c=>rentColor(+c.rentPct)),
+        barThickness:9,
+        borderRadius:{topRight:2,bottomRight:2}
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',animation:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{...TT,callbacks:{
+          title:it=>`${s[it[0].dataIndex].name} (${s[it[0].dataIndex].country})`,
+          label:it=>{
+            const c=s[it.dataIndex];
+            return[` Studio rent: $${c.rent}/mo`,
+                   ` Net salary: $${c.net}/mo`,
+                   ` Burden: ${c.rentPct}%`,
+                   ` ${+c.rentPct>30?'⚠ Above 30% threshold':'✓ Within 30% threshold'}`];
+          }
+        }}
+      },
+      scales:{
+        x:{grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{grid:{display:false},border:{display:false},ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 5 — FUNDING SOURCES (3 grouped bars)
+// ═══════════════════════════════════════════════════════════
+(function(){
+  const s=[...cities].sort((a,b)=>b.gross-a.gross);
+  makeChart('cFunding',{
+    type:'bar',
+    data:{
+      labels:s.map(c=>c.name),
+      datasets:[
+        {label:'Government / National Council', data:s.map(c=>c.gross),
+         backgroundColor:'#0072B2BB',barThickness:6},
+        {label:'EU / Intl Competitive Fellowship', data:s.map(c=>c.mscaG||null),
+         backgroundColor:'#E69F00BB',barThickness:6},
+        {label:'Industry / Private R&D',  data:s.map(c=>c.indG),
+         backgroundColor:'#009E73BB',barThickness:6}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:6}},
+        tooltip:{...TT,callbacks:{
+          title:it=>`${s[it[0].dataIndex].name} (${s[it[0].dataIndex].country})`,
+          label:it=>{
+            const c=s[it.dataIndex];
+            const lbls=['Government/National','EU/Intl Competitive','Industry'];
+            const vals=[c.gross, c.mscaG||0, c.indG];
+            const note=['All gross monthly USD','MSCA-PF or equiv; 0 = not applicable','Est. pharma/biotech'];
+            return[` ${lbls[it.datasetIndex]}: $${vals[it.datasetIndex].toLocaleString()}`,
+                   ` (${note[it.datasetIndex]})`];
+          }
+        }}
+      },
+      scales:{
+        x:{grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},callback:v=>'$'+v.toLocaleString()}},
+        y:{grid:{display:false},border:{display:false},ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 6 — DUMBBELL: Net Salary vs Living Wage
+// ═══════════════════════════════════════════════════════════
+(function(){
+  // Sort by (net - livingWage) descending — best off at top
+  const s=[...cities].sort((a,b)=>(b.net-b.lw)-(a.net-a.lw));
+
+  const dumbbellPlugin = {
+    id:'dumbbell',
+    afterDatasetsDraw(chart){
+      const{ctx}=chart;
+      const m0=chart.getDatasetMeta(0); // living wage
+      const m1=chart.getDatasetMeta(1); // net salary
+      ctx.save();
+      m0.data.forEach((pt,i)=>{
+        const pt2=m1.data[i];
+        const isAbove = s[i].net >= s[i].lw;
+        ctx.beginPath();
+        ctx.moveTo(pt.x, pt.y);
+        ctx.lineTo(pt2.x, pt2.y);
+        ctx.strokeStyle = isAbove ? '#05966988' : '#DC262688';
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      });
+      ctx.restore();
+    }
+  };
+
+  makeChart('cDumbbell',{
+    type:'scatter',
+    plugins:[dumbbellPlugin],
+    data:{
+      labels:s.map(c=>c.name),
+      datasets:[
+        {
+          label:'Living Wage ◆',
+          data:s.map((c,i)=>({x:c.lw, y:i, name:c.name})),
+          backgroundColor:'#475569',
+          borderColor:'#475569',
+          pointStyle:'rectRot',
+          pointRadius:5,
+          pointHoverRadius:7
+        },
+        {
+          label:'Postdoc Net Salary ●',
+          data:s.map((c,i)=>({x:c.net, y:i, name:c.name, gap:c.net-c.lw})),
+          backgroundColor:s.map(c=>c.net>=c.lw?'#059669':'#DC2626'),
+          borderColor:s.map(c=>c.net>=c.lw?'#059669':'#DC2626'),
+          pointStyle:'circle',
+          pointRadius:5,
+          pointHoverRadius:7
+        }
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:7,
+          usePointStyle:true}},
+        tooltip:{...TT,callbacks:{
+          label:it=>{
+            const d=it.raw;
+            const c=s[d.y];
+            const gap=c.net-c.lw;
+            return[` ${c.name} (${c.country})`,
+                   ` Net salary: $${c.net.toLocaleString()}`,
+                   ` Living wage: $${c.lw.toLocaleString()}`,
+                   ` Gap: ${gap>=0?'+':''}$${gap.toLocaleString()} ${gap>=0?'▲ above':'▼ below'}`];
+          }
+        }}
+      },
+      scales:{
+        x:{
+          title:{display:true,text:'Monthly USD',font:{size:9}},
+          grid:{color:'#F0F0F0'},border:{display:false},
+          ticks:{font:{size:9},callback:v=>'$'+v.toLocaleString()}
+        },
+        y:{
+          min:-1, max:s.length,
+          ticks:{
+            font:{size:9},
+            callback:(v)=>{
+              const c=s[Math.round(v)];
+              return c?c.name:'';
+            },
+            stepSize:1
+          },
+          grid:{color:'#F5F5F5'},border:{display:false}
+        }
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 7 — HEALTHCARE: Quality + Access + Affordability + Dental
+// ═══════════════════════════════════════════════════════════
+(function(){
+  const s=[...cities].sort((a,b)=>b.hcAvg-a.hcAvg);
+  makeChart('cHealth',{
+    type:'bar',
+    data:{
+      labels:s.map(c=>c.name),
+      datasets:[
+        {label:'Quality of Care',          data:s.map(c=>c.hcq),     backgroundColor:'#0072B2CC', barThickness:5},
+        {label:'Accessibility',            data:s.map(c=>c.hca),     backgroundColor:'#E69F00CC', barThickness:5},
+        {label:'Affordability (vs salary)',data:s.map(c=>c.hcaff),   backgroundColor:'#009E73CC', barThickness:5},
+        {label:'Dental Affordability',     data:s.map(c=>c.hcDental),backgroundColor:'#CC79A7CC', barThickness:5}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',animation:false,
+      plugins:{
+        legend:{display:true,position:'top',labels:{font:{size:9},boxWidth:10,padding:6}},
+        tooltip:{...TT,callbacks:{
+          title:it=>`${s[it[0].dataIndex].name} (${s[it[0].dataIndex].country})`,
+          label:it=>{
+            const c=s[it.dataIndex];
+            const lbls=['Quality','Accessibility','Affordability','Dental Affordability'];
+            const vals=[c.hcq,c.hca,c.hcaff,c.hcDental];
+            const descs=[
+              'Hospital quality, specialists, outcomes (WHO/Numbeo)',
+              'Ease of access for foreign postdoc on work contract',
+              'General cost vs salary: 10=fully covered/free, 1=high OOP',
+              'Dental cost: 10=cheap/covered, 1=expensive OOP (e.g. US, CH)'
+            ];
+            return[` ${lbls[it.datasetIndex]}: ${vals[it.datasetIndex]}/10`,
+                   ` ${descs[it.datasetIndex]}`,
+                   ` Avg all 4 metrics: ${c.hcAvg}/10`];
+          }
+        }}
+      },
+      scales:{
+        x:{min:0,max:10,grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},stepSize:2}},
+        y:{grid:{display:false},border:{display:false},ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// CHART 8 — INFLATION RISK (country-level 5yr avg)
+// ═══════════════════════════════════════════════════════════
+(function(){
+  // Deduplicate by country, take max city inflation (country-level data)
+  const seen=new Set();
+  const rows=[];
+  [...cities].sort((a,b)=>(INF[b.country]||0)-(INF[a.country]||0)).forEach(c=>{
+    if(!seen.has(c.country)&&INF[c.country]!==undefined){
+      seen.add(c.country);
+      rows.push({label:`${c.name} (${c.country})`,inf:INF[c.country],color:c.color});
+    }
+  });
+
+  const infColor=v=>v>10?'#D55E00':v>6?'#E69F00':v>3?'#D4B800':'#009E73';
+
+  const erosionPlugin={
+    id:'erosion',
+    afterDraw(chart){
+      const{ctx,scales:{x,y}}=chart;
+      // draw 3% and 6% guideline
+      [3,6].forEach(val=>{
+        const xp=x.getPixelForValue(val);
+        ctx.save();
+        ctx.setLineDash([3,3]);
+        ctx.strokeStyle=val===3?'#009E7388':'#D55E0088';
+        ctx.lineWidth=1.2;
+        ctx.beginPath(); ctx.moveTo(xp,y.top); ctx.lineTo(xp,y.bottom); ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle=val===3?'#009E73':'#D55E00';
+        ctx.font='9px IBM Plex Sans,sans-serif';
+        ctx.fillText(val+'%',xp+2,y.top+9);
+        ctx.restore();
+      });
+    }
+  };
+
+  makeChart('cInflation',{
+    type:'bar',
+    plugins:[erosionPlugin],
+    data:{
+      labels:rows.map(r=>r.label),
+      datasets:[{
+        label:'5-yr avg annual inflation (%)',
+        data:rows.map(r=>r.inf),
+        backgroundColor:rows.map(r=>infColor(r.inf)),
+        barThickness:10,
+        borderRadius:{topRight:2,bottomRight:2}
+      }]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,indexAxis:'y',animation:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{...TT,callbacks:{
+          title:it=>`${rows[it[0].dataIndex].label}`,
+          label:it=>{
+            const v=rows[it.dataIndex].inf;
+            const erosion3=(Math.pow(1+v/100,3)-1)*100;
+            return[` 5-yr avg annual inflation: ${v}%`,
+                   ` Real salary erosion over 3-yr postdoc: ~${erosion3.toFixed(0)}%`,
+                   ` ${v>10?'⚠ High risk — salary must be inflation-linked':v>6?'⚠ Moderate-high risk':v>3?'→ Some erosion expected':'✓ Low inflation risk'}`];
+          }
+        }}
+      },
+      scales:{
+        x:{grid:{color:'#F0F0F0'},border:{display:false},
+           ticks:{font:{size:9},callback:v=>v+'%'}},
+        y:{grid:{display:false},border:{display:false},ticks:{font:{size:9},padding:2}}
+      }
+    }
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════
+// REFERENCE TABLE (Tab 5) — built on first activation
+// ═══════════════════════════════════════════════════════════
+let tableBuilt = false;
+function buildTable(){
+  if(tableBuilt) return;
+  tableBuilt = true;
+
+  const cols = [
+    {key:'name',      label:'City',           fmt:v=>v},
+    {key:'country',   label:'Country',         fmt:v=>v},
+    {key:'region',    label:'Region',          fmt:(v,c)=>`<span class="pill" style="background:${RC[c.region]}">${v}</span>`},
+    {key:'gross',     label:'Gross $/mo',      fmt:v=>'$'+v.toLocaleString()},
+    {key:'tax',       label:'Tax %',           fmt:v=>(v*100).toFixed(0)+'%'},
+    {key:'net',       label:'Net $/mo',        fmt:v=>'$'+v.toLocaleString()},
+    {key:'rent',      label:'Studio Rent',     fmt:v=>'$'+v.toLocaleString()},
+    {key:'rentPct',   label:'Rent % Net',      fmt:(v,c)=>`<span style="color:${+c.rentPct>50?'#D55E00':+c.rentPct>30?'#E69F00':'#009E73'};font-weight:600">${v}%</span>`},
+    {key:'disp',      label:'Disposable',      fmt:(v,c)=>`<span style="color:${v<0?'#D55E00':'#1C1C2E'};font-weight:${v<0?600:400}">${v<0?'-':''}$${Math.abs(v).toLocaleString()}</span>`},
+    {key:'col',       label:'CoL Index',       fmt:v=>v},
+    {key:'hcAvg',     label:'HC Score',        fmt:(v,c)=>`<span style="color:${v>=8?'#009E73':v>=6?'#E69F00':'#D55E00'};font-weight:600">${v}/10</span>`},
+    {key:'hcDental',  label:'Dental',          fmt:v=>`${v}/10`},
+    {key:'lw',        label:'Living Wage',     fmt:v=>'$'+v.toLocaleString()},
+    {key:'indG',      label:'Industry $/mo',   fmt:v=>'$'+v.toLocaleString()},
+    {key:'mscaG',     label:'EU/Intl Comp.',   fmt:v=>v?'$'+v.toLocaleString():'—'},
+  ];
+
+  const thead = document.querySelector('#ref-table thead tr');
+  cols.forEach((col,i)=>{
+    const th = document.createElement('th');
+    th.textContent = col.label;
+    th.dataset.col = col.key;
+    th.onclick = ()=>sortTable(col.key, col.fmt, i);
+    thead.appendChild(th);
+  });
+
+  const tbody = document.querySelector('#ref-table tbody');
+  const sorted = [...cities].sort((a,b)=>b.gross-a.gross);
+  sorted.forEach(c=>{
+    const tr = document.createElement('tr');
+    cols.forEach(col=>{
+      const td = document.createElement('td');
+      td.innerHTML = col.fmt(c[col.key], c);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+let sortDir = {};
+function sortTable(key, fmtFn, colIdx){
+  const tbody = document.querySelector('#ref-table tbody');
+  const ths = document.querySelectorAll('#ref-table th');
+  sortDir[key] = !sortDir[key];
+  ths.forEach(t=>t.classList.remove('sort-asc','sort-desc'));
+  ths[colIdx].classList.add(sortDir[key]?'sort-asc':'sort-desc');
+  const rows=[...cities].sort((a,b)=>{
+    const av=typeof a[key]==='string'?a[key].toLowerCase():a[key];
+    const bv=typeof b[key]==='string'?b[key].toLowerCase():b[key];
+    if(av===bv) return 0;
+    const cmp = av>bv?1:-1;
+    return sortDir[key]?cmp:-cmp;
+  });
+  tbody.innerHTML='';
+  const cols = document.querySelectorAll('#ref-table th');
+  const colDefs = Array.from(cols).map(th=>th.dataset.col);
+  // rebuild rows
+  rows.forEach(c=>{
+    const tr=document.createElement('tr');
+    // reuse same formatters
+    const fmts = [
+      v=>v, v=>v,
+      (v,c)=>`<span class="pill" style="background:${RC[c.region]}">${v}</span>`,
+      v=>'$'+v.toLocaleString(), v=>(v*100).toFixed(0)+'%',
+      v=>'$'+v.toLocaleString(), v=>'$'+v.toLocaleString(),
+      (v,c)=>`<span style="color:${+c.rentPct>50?'#D55E00':+c.rentPct>30?'#E69F00':'#009E73'};font-weight:600">${v}%</span>`,
+      (v,c)=>`<span style="color:${v<0?'#D55E00':'#1C1C2E'};font-weight:${v<0?600:400}">${v<0?'-':''}$${Math.abs(v).toLocaleString()}</span>`,
+      v=>v,
+      (v,c)=>`<span style="color:${v>=8?'#009E73':v>=6?'#E69F00':'#D55E00'};font-weight:600">${v}/10</span>`,
+      v=>`${v}/10`,
+      v=>'$'+v.toLocaleString(), v=>'$'+v.toLocaleString(),
+      v=>v?'$'+v.toLocaleString():'—'
+    ];
+    const keys=['name','country','region','gross','tax','net','rent','rentPct','disp','col','hcAvg','hcDental','lw','indG','mscaG'];
+    keys.forEach((k,i)=>{
+      const td=document.createElement('td');
+      td.innerHTML=fmts[i](c[k],c);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+// ═══════════════════════════════════════════════════════════
+// TAB SWITCHING
+// ═══════════════════════════════════════════════════════════
+function setTab(id){
+  document.querySelectorAll('.tab-sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  const idx = ['t1','t2','t3','t4','t5'].indexOf(id);
+  if(idx>=0) btns[idx].classList.add('active');
+
+  // resize all charts in this tab
+  setTimeout(()=>{
+    Object.entries(chartReg).forEach(([cid,chart])=>{
+      const el = document.getElementById(cid);
+      if(el && el.closest('.active')) chart.resize();
+    });
+    if(id==='t5') buildTable();
+  }, 30);
+}
+</script>
+</body>
+</html>
